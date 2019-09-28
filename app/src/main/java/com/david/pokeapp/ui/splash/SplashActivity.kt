@@ -16,6 +16,10 @@ class SplashActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_splash
 
     override fun initObservers() {
+        viewModel.startAnimation.observe(this, Observer {
+            viewModel.fadeOutAnimation(tvSplash, ivSplash)
+        })
+
         viewModel.goToHome.observe(this, Observer {
             goToHome()
         })

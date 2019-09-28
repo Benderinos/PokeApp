@@ -21,7 +21,7 @@
 
     <!-- SPLASH THEME -->
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>

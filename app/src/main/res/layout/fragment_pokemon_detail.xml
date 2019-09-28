@@ -20,17 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            android:elevation="8dp"
-            android:backgroundTint="@color/colorAccent"
-
-            >
+            android:elevation="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/colorAccent"
-                >
+                android:layout_gravity="center">
 
                 <ImageView
                     android:id="@+id/ivPokemonPhoto"
