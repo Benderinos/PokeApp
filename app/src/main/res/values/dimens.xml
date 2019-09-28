@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textSize">15sp</dimen>
+    <dimen name="pokemon_list_image_size">96dp</dimen>
+    <dimen name="pokemon_detail_image_size">128dp</dimen>
+</resources>

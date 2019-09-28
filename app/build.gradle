@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.david.pokeapp"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    /**
+     * Kotlin
+     */
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+
+    /**
+     * Koin
+     */
+    implementation "org.koin:koin-android:$kotlin_koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$kotlin_koin_version"
+
+    /**
+     * Android X
+     */
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraints_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'androidx.core:core-ktx:1.1.0'
+
+    /**
+     * Android navigation
+     */
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+
+    /**
+     * Material
+     */
+    implementation "com.google.android.material:material:$material_version"
+
+    /**
+     * View Module
+     */
+    implementation "androidx.legacy:legacy-support-v4:$supportLibraryVersion"
+
+    /**
+     * Glide
+     */
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
+
+
+    /**
+     * Test
+     */
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    /**
+     * Module dependences
+     */
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+}
