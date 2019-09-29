@@ -6,6 +6,7 @@ import com.david.domain.callbacks.OnPokemonDetailListener
 import com.david.domain.model.PokemonDetail
 import com.david.domain.usecases.PokemonUseCase
 import com.david.pokeapp.livedata.BaseSingleLiveEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PokemonDetailViewModel(private val pokemonUseCase: PokemonUseCase) : ViewModel(), OnPokemonDetailListener {
@@ -19,15 +20,15 @@ class PokemonDetailViewModel(private val pokemonUseCase: PokemonUseCase) : ViewM
         }
     }
 
-    private fun getPokemon(pokemonNumber: Int) {
-        pokemonUseCase.getPokemon(pokemonNumber ,this)
+    private suspend fun getPokemon(pokemonNumber: Int) {
+        viewModelScope.launch(Dispatchers.Main){pokemonUseCase.getPokemon(pokemonNumber ,this@PokemonDetailViewModel)}
     }
 
     override fun onSuccess(data: PokemonDetail) {
-        pokemon.value = data
+        viewModelScope.launch(Dispatchers.Main){pokemon.value = data}
     }
 
     override fun onFailure(message: String) {
-        errorMessage.value = message
+        viewModelScope.launch(Dispatchers.Main){errorMessage.value = message}
     }
 }

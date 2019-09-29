@@ -8,8 +8,8 @@ import com.david.domain.usecasesImpl.PokemonUseCaseImpl
 
 interface PokemonUseCase {
 
-    fun getAllPokemonList(onPokemonListLisener : OnPokemonListListener)
-    fun getPokemon(pokemonNumber : Int, onPokemonDetailListLisener : OnPokemonDetailListener)
+    suspend fun getAllPokemonList(onPokemonListLisener : OnPokemonListListener)
+    suspend fun getPokemon(pokemonNumber : Int, onPokemonDetailListLisener : OnPokemonDetailListener)
 
     companion object {
         fun createInstance(pokemonRepository: PokemonRepository): PokemonUseCase = PokemonUseCaseImpl(pokemonRepository)

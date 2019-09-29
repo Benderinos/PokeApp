@@ -5,8 +5,8 @@ import com.david.data.model.PokemonDetailResponse
 
 interface PokemonRepository {
 
-    fun getAllPokemon(onPokemonListener: OnPokemonListener)
-    fun getPokemon(number : Int, onPokemonDetailListener: OnPokemonDetailListener)
+    suspend fun getAllPokemon(onPokemonListener: OnPokemonListener)
+    suspend fun getPokemon(number : Int, onPokemonDetailListener: OnPokemonDetailListener)
 
     interface OnPokemonListener {
         fun onSuccess(pokemonDataList : List<PokemonData>)

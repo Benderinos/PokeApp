@@ -12,6 +12,7 @@ import com.david.domain.model.Pokemon
 import com.david.domain.usecases.PokemonUseCase
 import com.david.pokeapp.livedata.BaseSingleLiveEvent
 import com.david.pokeapp.ui.home.HomeFragmentDirections
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val pokemonUseCase: PokemonUseCase, private val context: Context) :
@@ -26,7 +27,7 @@ class HomeViewModel(private val pokemonUseCase: PokemonUseCase, private val cont
         viewModelScope.launch { getAllPokemonList() }
     }
 
-    private fun getAllPokemonList() {
+    private suspend fun getAllPokemonList() {
         pokemonUseCase.getAllPokemonList(this)
     }
 
@@ -42,21 +43,24 @@ class HomeViewModel(private val pokemonUseCase: PokemonUseCase, private val cont
     }
 
     override fun onSuccess(data: List<Pokemon>) {
-        pokemons.value = data
+        viewModelScope.launch(Dispatchers.Main){pokemons.value = data}
     }
 
     override fun onFailure(message: String) {
-        errorMessage.value = message
+        viewModelScope.launch(Dispatchers.Main){errorMessage.value = message}
     }
 
-    fun performSearch(newText: String?) {
-        val searchedPokemons = arrayListOf<Pokemon>()
-        if(newText!=null){
-            pokemons.value?.forEach {
-                it.takeIf { it.name.contains(newText) }?.apply { searchedPokemons.add(it) }
-            }.apply { filteredPokemonList.value = searchedPokemons }
-        }else{
-            getAllPokemonList()
+    suspend fun performSearch(newText: String?) {
+        viewModelScope.launch {
+            val searchedPokemons = arrayListOf<Pokemon>()
+            if(newText!=null){
+                pokemons.value?.forEach {
+                    it.takeIf { it.name.contains(newText) }?.apply { searchedPokemons.add(it) }
+                }.apply { viewModelScope.launch(Dispatchers.Main){filteredPokemonList.value = searchedPokemons} }
+            }else{
+                getAllPokemonList()
+            }
         }
+
     }
 }

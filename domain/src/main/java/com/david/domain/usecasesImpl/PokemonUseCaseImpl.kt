@@ -11,7 +11,7 @@ import com.david.domain.usecases.PokemonUseCase
 
 class PokemonUseCaseImpl(private val pokemonRepository: PokemonRepository) : PokemonUseCase {
 
-    override fun getAllPokemonList(onPokemonListLisener: OnPokemonListListener) {
+    override suspend fun getAllPokemonList(onPokemonListLisener: OnPokemonListListener) {
         pokemonRepository.getAllPokemon(object : PokemonRepository.OnPokemonListener {
             override fun onSuccess(pokemonDataList: List<PokemonData>) {
                 val pokemonListDomain = Pokemon.map(pokemonDataList)
@@ -24,7 +24,7 @@ class PokemonUseCaseImpl(private val pokemonRepository: PokemonRepository) : Pok
         })
     }
 
-    override fun getPokemon(pokemonNumber: Int, onPokemonDetailListLisener: OnPokemonDetailListener) {
+    override suspend fun getPokemon(pokemonNumber: Int, onPokemonDetailListLisener: OnPokemonDetailListener) {
         pokemonRepository.getPokemon(pokemonNumber, object : PokemonRepository.OnPokemonDetailListener {
             override fun onSuccess(pokemonDetailResponse: PokemonDetailResponse) {
                 val pokemon = PokemonDetail.map(pokemonDetailResponse)
